@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = ({ toggleCalendar }) => {
+const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <button className="menu-btn" onClick={toggleCalendar} aria-label="Toggle Calendar">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 12H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
                 <div className="brand">Koa</div>
+                <div className="nav-links">
+                    <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                        Dashboard
+                    </NavLink>
+                    <NavLink to="/calendar" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                        Calendar
+                    </NavLink>
+                </div>
             </div>
 
             <div className="navbar-center">

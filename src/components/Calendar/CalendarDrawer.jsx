@@ -1,7 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CalendarDrawer.css';
 
 const CalendarDrawer = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
+
+    const handleOpenFullCalendar = () => {
+        onClose();
+        navigate('/calendar');
+    };
+
     // Simple mock calendar grid
     const days = Array.from({ length: 30 }, (_, i) => i + 1);
     const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -15,7 +23,27 @@ const CalendarDrawer = ({ isOpen, onClose }) => {
                     <button className="close-btn" onClick={onClose}>&times;</button>
                 </div>
 
+                <div style={{ padding: '0 20px 10px' }}>
+                    <button
+                        onClick={handleOpenFullCalendar}
+                        style={{
+                            width: '100%',
+                            padding: '10px',
+                            backgroundColor: 'var(--primary-color)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '600'
+                        }}
+                    >
+                        View Full Calendar 📅
+                    </button>
+                </div>
+
                 <div className="calendar-grid">
+
                     {weekDays.map(day => (
                         <div key={day} className="day-name">{day}</div>
                     ))}

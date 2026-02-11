@@ -2,9 +2,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto auto auto;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
-    max-width: 1400px;
+    gap: 32px;
+    padding: var(--page-padding) var(--page-padding) 4rem;
+    max-width: var(--content-max-width);
     margin: 0 auto;
     min-height: calc(100vh - 80px);
 }

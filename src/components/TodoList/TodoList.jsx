@@ -1,31 +1,20 @@
 import React, { useState } from 'react';
 import './TodoList.css';
 
-const TodoList = () => {
-    const [tasks, setTasks] = useState([
-        { id: 1, text: "Finish React project", completed: false },
-        { id: 2, text: "Read Chapter 4", completed: true },
-        { id: 3, text: "Email professor", completed: false },
-    ]);
+const TodoList = ({ tasks, addTask, toggleTask, deleteTask }) => {
+    // Local state for the input field only
     const [newTask, setNewTask] = useState("");
 
-    const addTask = (e) => {
+    const handleAddTask = (e) => {
         e.preventDefault();
         if (!newTask.trim()) return;
 
-        setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
+        addTask(newTask);
         setNewTask("");
     };
 
-    const toggleTask = (id) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? { ...task, completed: !task.completed } : task
-        ));
-    };
+    // toggleTask and deleteTask are now passed as props
 
-    const deleteTask = (id) => {
-        setTasks(tasks.filter(task => task.id !== id));
-    };
 
     return (
         <div className="card todo-card">
@@ -34,7 +23,7 @@ const TodoList = () => {
                 <span className="task-count">{tasks.filter(t => !t.completed).length} remaining</span>
             </div>
 
-            <form onSubmit={addTask} className="add-task-form">
+            <form onSubmit={handleAddTask} className="add-task-form">
                 <input
                     type="text"
                     placeholder="Add a new task..."

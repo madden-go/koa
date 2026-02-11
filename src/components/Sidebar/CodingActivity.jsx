@@ -16,6 +16,7 @@ const CodingActivity = () => {
                     </div>
                     <div className="stat-info">
                         <span className="stat-value">14</span>
+                        <p>   </p>
                         <span className="stat-label">GitHub Commits</span>
                     </div>
                 </div>
@@ -26,6 +27,7 @@ const CodingActivity = () => {
                     </div>
                     <div className="stat-info">
                         <span className="stat-value">3</span>
+                        <p>   </p>
                         <span className="stat-label">LeetCode Problems</span>
                     </div>
                 </div>
@@ -36,6 +38,7 @@ const CodingActivity = () => {
                     </div>
                     <div className="stat-info">
                         <span className="stat-value">5.2h</span>
+                        <p>   </p>
                         <span className="stat-label">Time Coded</span>
                     </div>
                 </div>

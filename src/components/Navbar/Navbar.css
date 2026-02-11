@@ -28,10 +28,37 @@
 }
 
 .brand {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--text-main);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--primary-color);
     letter-spacing: -0.5px;
+    margin-right: var(--spacing-lg);
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    color: var(--text-main);
+}
+
+.nav-link.active {
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
+    font-weight: 600;
 }
 
 .navbar-center {
