@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import MainLayout from './components/Layout/MainLayout';
 // Components
@@ -22,6 +23,9 @@ import { AuthProvider } from './context/AuthContext';
 // global styles are imported in main.jsx
 
 function AppContent() {
+  const location = useLocation();
+  const { user } = useAuth();
+
   // -- State Lifted from TodoList --
   const [tasks, setTasks] = useState([
     { id: 1, text: "Finish React project", completed: false },
@@ -59,55 +63,68 @@ function AppContent() {
   // -- State Lifted from MoodTracker --
   const [selectedMood, setSelectedMood] = useState(null);
 
+  const isAuthPage = ['/', '/login', '/signup'].includes(location.pathname);
+
   return (
     <div className="app-container">
-      <Navbar />
+      {!isAuthPage && <Navbar />}
 
       <Routes>
-        <Route path="/" element={
-          <MainLayout>
-            {/* Column 1 - Left */}
-            <div className="flex-col gap-lg">
-              <CalendarWidget />
-              <ReminderWidget />
-              <SubjectList />
-              <MoodTracker selectedMood={selectedMood} setSelectedMood={setSelectedMood} />
-            </div>
+        {/* Public Routes */}
+        <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
+        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
+        <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <SignupPage />} />
 
-            {/* Column 2 - Center (Time Split + Tasks) */}
-            <div className="flex-col gap-lg">
-              <div style={{ height: '350px' }}>
-                <TimeSplit />
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={
+          user ? (
+            <MainLayout>
+              {/* Column 1 - Left */}
+              <div className="flex-col gap-lg">
+                <CalendarWidget />
+                <ReminderWidget />
+                <SubjectList />
+                <MoodTracker selectedMood={selectedMood} setSelectedMood={setSelectedMood} />
               </div>
-              <div style={{ height: '400px' }}>
-                <TodoList tasks={tasks} addTask={addTask} toggleTask={toggleTask} deleteTask={deleteTask} />
-              </div>
-            </div>
 
-            {/* Column 3 - Right (Coding Activity + Props) */}
-            <div className="flex-col gap-lg">
-              <div>
-                <CodingActivity />
+              {/* Column 2 - Center (Time Split + Tasks) */}
+              <div className="flex-col gap-lg">
+                <div style={{ height: '350px' }}>
+                  <TimeSplit />
+                </div>
+                <div style={{ height: '400px' }}>
+                  <TodoList tasks={tasks} addTask={addTask} toggleTask={toggleTask} deleteTask={deleteTask} />
+                </div>
               </div>
-              <HabitTracker habits={habits} toggleHabit={toggleHabit} />
-              {/* Journal can go below or flexible */}
-              <div style={{ height: '150px' }}>
-                <JournalWidget />
+
+              {/* Column 3 - Right (Coding Activity + Props) */}
+              <div className="flex-col gap-lg">
+                <div>
+                  <CodingActivity />
+                </div>
+                <HabitTracker habits={habits} toggleHabit={toggleHabit} />
+                {/* Journal can go below or flexible */}
+                <div style={{ height: '150px' }}>
+                  <JournalWidget />
+                </div>
               </div>
-            </div>
-          </MainLayout>
+            </MainLayout>
+          ) : (
+            <Navigate to="/" replace />
+          )
         } />
 
         <Route path="/calendar" element={
-          <CalendarPage
-            tasks={tasks}
-            habits={habits}
-            mood={selectedMood}
-          />
+          user ? (
+            <CalendarPage
+              tasks={tasks}
+              habits={habits}
+              mood={selectedMood}
+            />
+          ) : (
+            <Navigate to="/" replace />
+          )
         } />
-
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
       </Routes>
 
       <Pet />

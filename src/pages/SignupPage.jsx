@@ -12,7 +12,7 @@ const SignupPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (signup(username, password)) {
-            navigate('/');
+            navigate('/dashboard');
         }
     };
 

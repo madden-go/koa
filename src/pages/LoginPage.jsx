@@ -13,7 +13,7 @@ const LoginPage = () => {
         e.preventDefault();
         // In a real app, validation would go here
         if (login(username, password)) {
-            navigate('/');
+            navigate('/dashboard');
         }
     };
 
