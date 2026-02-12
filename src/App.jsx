@@ -16,6 +16,9 @@ import CalendarWidget from './components/Widgets/CalendarWidget';
 import Pet from './components/Pet/Pet';
 // Pages
 import CalendarPage from './pages/CalendarPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import { AuthProvider } from './context/AuthContext';
 // global styles are imported in main.jsx
 
 function AppContent() {
@@ -102,6 +105,9 @@ function AppContent() {
             mood={selectedMood}
           />
         } />
+
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
 
       <Pet />
@@ -112,9 +118,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,8 +1,18 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
     return (
         <nav className="navbar">
             <div className="navbar-left">
@@ -28,7 +38,21 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-right">
-                <div className="profile-placeholder"></div>
+                {user ? (
+                    <div className="user-menu">
+                        <span className="username">{user.username}</span>
+                        <div className="profile-placeholder" onClick={() => setShowDropdown(!showDropdown)}>
+                            {user.username.charAt(0).toUpperCase()}
+                        </div>
+                        {showDropdown && (
+                            <div className="dropdown-menu">
+                                <button onClick={handleLogout}>Logout</button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <Link to="/login" className="login-link">Login</Link>
+                )}
             </div>
         </nav>
     );

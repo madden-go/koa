@@ -2,10 +2,10 @@ import React from 'react';
 
 const SubjectList = () => {
     const subjects = [
-        { id: 1, name: "Data Structures", code: "CS101", color: "#FFB7B2" },
-        { id: 2, name: "Calculus II", code: "MAT202", color: "#ADD8E6" },
-        { id: 3, name: "Web Development", code: "CS205", color: "#B5EAD7" },
-        { id: 4, name: "History of Art", code: "ART100", color: "#E6E6FA" },
+        { id: 1, name: "Web Programming", code: "BCSE203E", color: "#FFB7B2" },
+        { id: 2, name: "Computer Networks", code: "BCSE308L", color: "#ADD8E6" },
+        { id: 3, name: "Database Systems", code: "BCSE302L", color: "#B5EAD7" },
+        { id: 4, name: "Theory of Computation", code: "BCS304L", color: "#E6E6FA" },
     ];
 
     return (
