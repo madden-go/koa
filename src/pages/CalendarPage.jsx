@@ -10,6 +10,8 @@ const CalendarPage = ({ tasks, habits, mood }) => {
     // The user's prompt said "ensure that the dates are the current date".
     // I'll grab the current real date.
 
+    const navigate = useNavigate();
+
     const now = new Date();
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth(); // 0-indexed

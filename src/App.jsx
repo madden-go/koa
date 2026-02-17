@@ -71,8 +71,8 @@ function AppContent() {
 
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
+        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
         {/* Protected Routes */}
